@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Turntable.SellerHomePage"
+             BackgroundColor="#1a1812"
+             Title="Seller Dashboard">
+
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+
+        <Label Text="Your Storefront"
+               TextColor="White"
+               FontSize="28"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+        <Label x:Name="EmailLabel"
+               TextColor="#d4af35"
+               FontSize="18"
+               HorizontalOptions="Center" />
+
+        <Label Text="You are logged in as a Seller. Here you will post listings."
+               TextColor="#cbd5e1"
+               FontSize="14"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"/>
+
+        <Button Text="Logout"
+                BackgroundColor="#2a271e"
+                TextColor="#d4af35"
+                BorderColor="#d4af35"
+                BorderWidth="1"
+                CornerRadius="8"
+                HeightRequest="50"
+                Margin="0,30,0,0"
+                Clicked="OnLogOutClicked" />
+
+    </VerticalStackLayout>
+</ContentPage>
