@@ -1,4 +1,6 @@
-﻿namespace Turntable;
+﻿using Turntable.Views.Auth;
+
+namespace Turntable;
 
 public partial class App : Application
 {
@@ -9,6 +11,6 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(new NavigationPage(new MainPage()));
+        return new Window(new NavigationPage(new SignInPage()));
     }
 }

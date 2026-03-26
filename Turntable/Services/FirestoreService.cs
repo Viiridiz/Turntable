@@ -25,7 +25,8 @@ public class FirestoreService
             fields = new
             {
                 email = new { stringValue = user.Email },
-                role = new { stringValue = user.Role }
+                role = new { stringValue = user.Role },
+                fullName = new { stringValue = user.FullName }
             }
         };
 

@@ -51,5 +51,24 @@ namespace Turntable.Services
 
             return content;
         }
+
+        public async Task<string> ResetPassword(string email)
+        {
+            var url = $"https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={ApiKey}";
+
+            var data = new
+            {
+                requestType = "PASSWORD_RESET",
+                email = email
+            };
+
+            var response = await _httpClient.PostAsJsonAsync(url, data);
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception(content);
+
+            return content;
+        }
     }
 }

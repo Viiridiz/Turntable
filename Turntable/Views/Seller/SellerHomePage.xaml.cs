@@ -1,8 +1,10 @@
-namespace Turntable;
+using Turntable.Views.Auth;
 
-public partial class CollectorHomePage : ContentPage
+namespace Turntable.Views.Seller;
+
+public partial class SellerHomePage : ContentPage
 {
-    public CollectorHomePage(string email)
+    public SellerHomePage(string email)
     {
         InitializeComponent();
         EmailLabel.Text = email;
@@ -14,7 +16,7 @@ public partial class CollectorHomePage : ContentPage
         var window = Application.Current?.Windows.FirstOrDefault();
         if (window != null)
         {
-            window.Page = new NavigationPage(new MainPage());
+            window.Page = new NavigationPage(new SignInPage());
         }
     }
 }

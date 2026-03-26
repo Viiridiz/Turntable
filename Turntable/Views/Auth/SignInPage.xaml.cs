@@ -1,7 +1,9 @@
 using Newtonsoft.Json.Linq;
 using Turntable.Services;
+using Turntable.Views.Buyer;
+using Turntable.Views.Seller;
 
-namespace Turntable;
+namespace Turntable.Views.Auth;
 
 public partial class SignInPage : ContentPage
 {
@@ -26,16 +28,16 @@ public partial class SignInPage : ContentPage
             string idToken = authData["idToken"]?.ToString() ?? string.Empty;
             string localId = authData["localId"]?.ToString() ?? string.Empty;
 
-            string role = await _firestoreService.GetUserRole(localId, idToken);
+            string dbRole = await _firestoreService.GetUserRole(localId, idToken);
 
             await SecureStorage.SetAsync("firebase_token", idToken);
-            Preferences.Set("user_role", role);
+            Preferences.Set("user_role", dbRole);
             Preferences.Set("user_uid", localId);
 
             var window = Application.Current?.Windows.FirstOrDefault();
             if (window != null)
             {
-                if (role == "Seller")
+                if (dbRole == "Seller")
                 {
                     window.Page = new NavigationPage(new SellerHomePage(EmailEntry.Text ?? string.Empty));
                 }
@@ -55,5 +57,10 @@ public partial class SignInPage : ContentPage
     private async void OnGoToSignUpPage(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new SignUpPage());
+    }
+
+    private async void OnForgotPasswordTapped(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ForgotPasswordPage());
     }
 }
