@@ -18,6 +18,24 @@
                FontSize="18"
                HorizontalOptions="Center" />
 
+        <Button Text="Post a new Listing"
+            BackgroundColor="#d4af35"
+            TextColor="#1a1812"
+            FontAttributes="Bold"
+            CornerRadius="0"
+            HeightRequest="45"
+            Margin="0,10,0,20"
+            Clicked="OnPostListingClicked"/>
+
+        <Button Text="Check Inventory"
+            BackgroundColor="#d4af35"
+            TextColor="#1a1812"
+            FontAttributes="Bold"
+            CornerRadius="0"
+            HeightRequest="45"
+            Margin="0,10,0,20"
+            Clicked="OnGoToInventoryTapped"/>
+
         <Label Text="You are logged in as a Seller. Here you will post listings."
                TextColor="#cbd5e1"
                FontSize="14"

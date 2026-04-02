@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Turntable.Views.Auth.SplashPage"
+             BackgroundColor="#1a1812"
+             NavigationPage.HasNavigationBar="False">
+
+    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+            <Grid WidthRequest="60" HeightRequest="60">
+                <Ellipse Stroke="#d4af35" StrokeThickness="2" />
+                <Ellipse Stroke="#d4af35" StrokeThickness="2" WidthRequest="20" HeightRequest="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Ellipse Fill="#d4af35" WidthRequest="8" HeightRequest="8" HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Grid>
+
+            <Label Text="Turntable"
+                   TextColor="White"
+                   FontSize="40"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <Label Text="Your Marketplace for Music"
+               TextColor="#cbd5e1"
+               FontSize="12"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+    </VerticalStackLayout>
+</ContentPage>

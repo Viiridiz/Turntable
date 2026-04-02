@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Turntable.Views.Seller.AddListingPage"
+             BackgroundColor="#1a1812"
+             NavigationPage.HasNavigationBar="False">
+
+    <ScrollView>
+        <VerticalStackLayout WidthRequest="1050" HorizontalOptions="Center" Padding="40" Spacing="30">
+
+            <VerticalStackLayout Spacing="5" Margin="0,0,0,10">
+                <Label Text="List Your Vinyl" TextColor="White" FontSize="32" FontAttributes="Bold" Margin="0,5,0,0" />
+                <Label Text="Sell your records to enthusiasts across the globe." TextColor="#94a3b8" FontSize="14" />
+            </VerticalStackLayout>
+
+            <Grid ColumnDefinitions="300, 630" ColumnSpacing="40">
+
+                <Border Grid.Column="0" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" Padding="30" VerticalOptions="Fill">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="25" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="Album Visual" TextColor="White" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+                        <Grid WidthRequest="180" HeightRequest="180">
+                            <Border Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="0"/>
+                                </Border.StrokeShape>
+                                <Grid>
+                                    <Label Text="+" TextColor="#d4af35" FontSize="60" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image x:Name="AlbumCoverImage" Aspect="AspectFill" IsVisible="False" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Button Text="SELECT IMAGE" BackgroundColor="White" TextColor="#1a1812" FontAttributes="Bold" CornerRadius="0" HeightRequest="45" WidthRequest="180" Clicked="OnSelectImageClicked"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" Padding="30" VerticalOptions="Start">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Record Information" TextColor="White" FontSize="16" FontAttributes="Bold" />
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Artist Name" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
+                            <Border WidthRequest="550" HorizontalOptions="Start" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="55">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="0"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="ArtistEntry" MaxLength="30" TextColor="White" Margin="15,0"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Album Title" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
+                            <Border WidthRequest="550" HorizontalOptions="Start" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="55">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="0"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="AlbumEntry" MaxLength="30" TextColor="White" Margin="15,0"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <Grid ColumnDefinitions="265, 265" ColumnSpacing="20">
+                            <VerticalStackLayout Spacing="5" Grid.Column="0">
+                                <Label Text="Release Year" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
+                                <Border WidthRequest="265" HorizontalOptions="Start" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="55">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="0"/>
+                                    </Border.StrokeShape>
+                                    <Entry x:Name="YearEntry" Keyboard="Numeric" MaxLength="4" TextColor="White" Margin="15,0"/>
+                                </Border>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Spacing="5" Grid.Column="1">
+                                <Label Text="Duration (mins)" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
+                                <Border WidthRequest="265" HorizontalOptions="Start" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="55">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="0"/>
+                                    </Border.StrokeShape>
+                                    <Entry x:Name="DurationEntry" Keyboard="Numeric" MaxLength="5" TextColor="White" Margin="15,0"/>
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="265, 265" ColumnSpacing="20">
+                            <VerticalStackLayout Spacing="5" Grid.Column="0">
+                                <Label Text="Genre" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
+                                <Border WidthRequest="265" HorizontalOptions="Start" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="55">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="0"/>
+                                    </Border.StrokeShape>
+                                    <Picker x:Name="GenrePicker" TitleColor="#64748b" TextColor="White" Margin="10,0" VerticalOptions="Center">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Rock</x:String>
+                                                <x:String>Pop</x:String>
+                                                <x:String>Jazz</x:String>
+                                                <x:String>Hip Hop</x:String>
+                                                <x:String>Electronic</x:String>
+                                                <x:String>RnB</x:String>
+                                                <x:String>Classic</x:String>
+                                                <x:String>Country</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </Border>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Spacing="5" Grid.Column="1">
+                                <Label Text="Condition" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
+                                <Border WidthRequest="265" HorizontalOptions="Start" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="55">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="0"/>
+                                    </Border.StrokeShape>
+                                    <Picker x:Name="ConditionPicker" TitleColor="#64748b" TextColor="White" Margin="10,0" VerticalOptions="Center">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Mint</x:String>
+                                                <x:String>Used</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <Border WidthRequest="970" HorizontalOptions="Center" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" Padding="30">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Tracklist" TextColor="White" FontSize="16" FontAttributes="Bold" />
+                    <Label Text="Enter one track per line." TextColor="#94a3b8" FontSize="12" />
+                    <Border Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="150">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="0"/>
+                        </Border.StrokeShape>
+                        <Editor x:Name="TracklistEditor" TextColor="White" Margin="15,10"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="465, 465" ColumnSpacing="40" HorizontalOptions="Center">
+                <Border Grid.Column="0" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" Padding="30">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Fulfillment Method" TextColor="White" FontSize="16" FontAttributes="Bold" />
+                        <Border Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="55">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="0" />
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="*,*">
+                                <Button x:Name="ShippingBtn" Text="SHIPPING" BackgroundColor="#d4af35" TextColor="#1a1812" FontAttributes="Bold" CornerRadius="0" Clicked="OnShippingClicked"/>
+                                <Button x:Name="MeetupBtn" Grid.Column="1" Text="LOCAL MEETUP" BackgroundColor="Transparent" TextColor="#94a3b8" FontAttributes="Bold" CornerRadius="0" Clicked="OnMeetupClicked"/>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1" Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" Padding="30">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Pricing" TextColor="White" FontSize="16" FontAttributes="Bold" />
+                        <Border Stroke="#d4af35" StrokeThickness="1" BackgroundColor="Transparent" HeightRequest="55">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="0"/>
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*" Margin="15,0">
+                                <Label Grid.Column="0" Text="$" TextColor="#64748b" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" Margin="0,0,5,0"/>
+                                <Entry Grid.Column="1" x:Name="PriceEntry" Keyboard="Numeric" MaxLength="8" TextColor="White" VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <HorizontalStackLayout HorizontalOptions="End" Spacing="25" Margin="0,10,0,40">
+                <Label Text="Cancel" TextColor="White" VerticalOptions="Center" FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCancelTapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Button Text="Publish Listing" x:Name="PublishBtn" BackgroundColor="White" TextColor="#1a1812" FontAttributes="Bold" CornerRadius="0" HeightRequest="50" Padding="40,0" Clicked="OnPublishClicked"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
