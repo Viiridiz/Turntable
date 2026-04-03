@@ -43,7 +43,7 @@ public partial class SignInPage : ContentPage
                 }
                 else
                 {
-                    window.Page = new NavigationPage(new CollectorHomePage(EmailEntry.Text ?? string.Empty));
+                    window.Page = new NavigationPage(new MarketplacePage());
                 }
             }
         }

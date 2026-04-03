@@ -50,7 +50,6 @@ public partial class MyInventoryPage : ContentPage
     {
         _showActive = true;
         ActiveTab.BackgroundColor = Color.FromArgb("#433d28");
-        ActiveIndicator.BackgroundColor = Color.FromArgb("#d4af35");
         ActiveLabel.TextColor = Colors.White;
 
         SoldTab.BackgroundColor = Colors.Transparent;
@@ -64,7 +63,6 @@ public partial class MyInventoryPage : ContentPage
     {
         _showActive = false;
         SoldTab.BackgroundColor = Color.FromArgb("#433d28");
-        SoldIndicator.BackgroundColor = Color.FromArgb("#d4af35");
         SoldLabel.TextColor = Colors.White;
 
         ActiveTab.BackgroundColor = Colors.Transparent;

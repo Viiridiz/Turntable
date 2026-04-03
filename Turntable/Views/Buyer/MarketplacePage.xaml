@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Turntable.Models"
-             x:Class="Turntable.Views.Seller.MyInventoryPage"
+             x:Class="Turntable.Views.Buyer.MarketplacePage"
              BackgroundColor="#1a1812"
              NavigationPage.HasNavigationBar="False">
 
@@ -19,30 +19,26 @@
                     <Label Text="Turntable" TextColor="White" FontSize="18" FontAttributes="Bold" VerticalOptions="Center"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.Column="1" Spacing="30" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label Text="Dashboard" TextColor="White" FontSize="14" FontAttributes="Bold"/>
-                    <Label Text="My Inventory" TextColor="#d4af35" FontSize="14" FontAttributes="Bold"/>
-                    <Label Text="Orders" TextColor="#94a3b8" FontSize="14"/>
+                    <Label Text="Marketplace" TextColor="White" FontSize="14" FontAttributes="Bold"/>
+                    <Label Text="Community" TextColor="#94a3b8" FontSize="14"/>
+                    <Label Text="Collections" TextColor="#94a3b8" FontSize="14"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.Column="2" Spacing="20" VerticalOptions="Center">
+                    <Label Text="Cart" TextColor="White" FontSize="14" VerticalOptions="Center"/>
                     <Label Text="Profile" TextColor="White" FontSize="14" VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Grid>
         </Border>
 
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout WidthRequest="1050" HorizontalOptions="Center" Padding="40" Spacing="25">
+            <VerticalStackLayout WidthRequest="1050" HorizontalOptions="Center" Padding="40,20,40,40" Spacing="30">
 
-                <Label Text="Inventory" TextColor="White" FontSize="32" FontAttributes="Bold" Margin="0,5,0,0" />
-
-                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="15">
-                    <Button Grid.Column="0" Text="Post Listing" BackgroundColor="#d4af35" TextColor="#1a1812" FontAttributes="Bold" CornerRadius="0" HeightRequest="55" WidthRequest="150" Clicked="OnPostListingClicked"/>
-                    <Border Grid.Column="1" StrokeThickness="0" BackgroundColor="#26241c" HeightRequest="55" HorizontalOptions="Fill">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="0"/>
-                        </Border.StrokeShape>
-                        <Entry x:Name="SearchEntry" Placeholder="Search inventory..." PlaceholderColor="#64748b" TextColor="White" FontSize="14" Margin="15,0" TextChanged="OnSearchTextChanged"/>
-                    </Border>
-                </Grid>
+                <Border StrokeThickness="0" BackgroundColor="#26241c" HeightRequest="55" HorizontalOptions="Fill">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0"/>
+                    </Border.StrokeShape>
+                    <Entry x:Name="SearchEntry" Placeholder="Search albums or artists by name..." PlaceholderColor="#64748b" TextColor="White" FontSize="14" Margin="15,0" TextChanged="OnSearchTextChanged"/>
+                </Border>
 
                 <Grid ColumnDefinitions="*, *, *" ColumnSpacing="15">
 
@@ -52,7 +48,7 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="0"/>
                             </Border.StrokeShape>
-                            <Picker x:Name="ConditionFilterPicker" TextColor="White" Margin="10,0" HorizontalOptions="Fill" VerticalOptions="Center" SelectedIndexChanged="OnFilterChanged">
+                            <Picker x:Name="ConditionPicker" TextColor="White" Margin="10,0" HorizontalOptions="Fill" VerticalOptions="Center" SelectedIndexChanged="OnFilterChanged">
                                 <Picker.ItemsSource>
                                     <x:Array Type="{x:Type x:String}">
                                         <x:String>All Conditions</x:String>
@@ -70,7 +66,7 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="0"/>
                             </Border.StrokeShape>
-                            <Picker x:Name="GenreFilterPicker" TextColor="White" Margin="10,0" HorizontalOptions="Fill" VerticalOptions="Center" SelectedIndexChanged="OnFilterChanged">
+                            <Picker x:Name="GenrePicker" TextColor="White" Margin="10,0" HorizontalOptions="Fill" VerticalOptions="Center" SelectedIndexChanged="OnFilterChanged">
                                 <Picker.ItemsSource>
                                     <x:Array Type="{x:Type x:String}">
                                         <x:String>All Genres</x:String>
@@ -109,57 +105,31 @@
 
                 </Grid>
 
-                <Border Stroke="#334155" StrokeThickness="1" BackgroundColor="Transparent" HorizontalOptions="Fill">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="0"/>
-                    </Border.StrokeShape>
-                    <Grid ColumnDefinitions="*,*" HeightRequest="45">
-                        <VerticalStackLayout x:Name="ActiveTab" Grid.Column="0" BackgroundColor="#433d28">
-                            <VerticalStackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnActiveTabTapped"/>
-                            </VerticalStackLayout.GestureRecognizers>
-                            <Label x:Name="ActiveLabel" Text="Active" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,12,0,0"/>
-                            <BoxView x:Name="ActiveIndicator" BackgroundColor="Transparent" HeightRequest="2" VerticalOptions="EndAndExpand"/>
-                        </VerticalStackLayout>
-                        <VerticalStackLayout x:Name="SoldTab" Grid.Column="1" BackgroundColor="Transparent">
-                            <VerticalStackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnSoldTabTapped"/>
-                            </VerticalStackLayout.GestureRecognizers>
-                            <Label x:Name="SoldLabel" Text="Sold" TextColor="#cbd5e1" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,12,0,0"/>
-                            <BoxView x:Name="SoldIndicator" BackgroundColor="Transparent" HeightRequest="2" VerticalOptions="EndAndExpand"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-
-                <CollectionView x:Name="ListingList" ItemSizingStrategy="MeasureAllItems">
+                <CollectionView x:Name="MarketplaceList" ItemSizingStrategy="MeasureAllItems" SelectionMode="Single" SelectionChanged="OnListingSelected">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="15" VerticalItemSpacing="15"/>
+                        <GridItemsLayout Orientation="Vertical" Span="4" HorizontalItemSpacing="25" VerticalItemSpacing="40"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:ListingModel">
-                            <Border Stroke="#334155" StrokeThickness="1" BackgroundColor="Transparent" Padding="15">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="0"/>
-                                </Border.StrokeShape>
-                                <VerticalStackLayout Spacing="10">
-                                    <Border Stroke="#334155" StrokeThickness="1" BackgroundColor="Transparent" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center">
+                            <VerticalStackLayout Spacing="10">
+                                <Border Stroke="#334155" StrokeThickness="1" BackgroundColor="Transparent" WidthRequest="235" HeightRequest="235" HorizontalOptions="Start">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="0"/>
+                                    </Border.StrokeShape>
+                                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                                </Border>
+                                <Label Text="{Binding AlbumName}" TextColor="White" FontAttributes="Bold" FontSize="16" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding Artist}" TextColor="#94a3b8" FontSize="14" LineBreakMode="TailTruncation"/>
+                                <Grid ColumnDefinitions="*, Auto" Margin="0,5,0,0">
+                                    <Label Grid.Column="0" Text="{Binding Price, StringFormat='${0:F2}'}" TextColor="White" FontAttributes="Bold" FontSize="16" VerticalOptions="Center"/>
+                                    <Border Grid.Column="1" Stroke="#334155" StrokeThickness="1" BackgroundColor="Transparent" WidthRequest="35" HeightRequest="35">
                                         <Border.StrokeShape>
                                             <RoundRectangle CornerRadius="0"/>
                                         </Border.StrokeShape>
-                                        <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                                        <Label Text="🛒" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                                     </Border>
-                                    <Label Text="{Binding AlbumName}" TextColor="White" FontAttributes="Bold" FontSize="16" CharacterSpacing="1"/>
-                                    <Label Text="{Binding Artist}" TextColor="#94a3b8" FontSize="12"/>
-                                    <Grid ColumnDefinitions="*, Auto" Margin="0,5,0,0">
-                                        <Label Grid.Column="0" Text="{Binding Condition}" TextColor="#d4af35" FontSize="11" VerticalOptions="Center"/>
-                                        <Label Grid.Column="1" Text="{Binding Price, StringFormat='${0:F2}'}" TextColor="White" FontAttributes="Bold" FontSize="14" VerticalOptions="Center"/>
-                                    </Grid>
-                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,10,0,0">
-                                        <Button Text="EDIT" FontSize="10" BackgroundColor="#334155" TextColor="White" HeightRequest="30" Clicked="OnEditClicked"/>
-                                        <Button Grid.Column="1" Text="DELETE" FontSize="10" BackgroundColor="#8b0000" TextColor="White" HeightRequest="30" Clicked="OnDeleteClicked"/>
-                                    </Grid>
-                                </VerticalStackLayout>
-                            </Border>
+                                </Grid>
+                            </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
