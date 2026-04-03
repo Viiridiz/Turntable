@@ -10,6 +10,7 @@
 
         <Border Grid.Row="0" BackgroundColor="#1a1812" Stroke="#334155" StrokeThickness="1" StrokeShape="Rectangle">
             <Grid ColumnDefinitions="Auto, *, Auto" Padding="20,15" VerticalOptions="Center">
+
                 <HorizontalStackLayout Grid.Column="0" Spacing="10" VerticalOptions="Center">
                     <Grid WidthRequest="30" HeightRequest="30">
                         <Ellipse Stroke="#d4af35" StrokeThickness="1.5" />
@@ -18,14 +19,31 @@
                     </Grid>
                     <Label Text="Turntable" TextColor="White" FontSize="18" FontAttributes="Bold" VerticalOptions="Center"/>
                 </HorizontalStackLayout>
+
                 <HorizontalStackLayout Grid.Column="1" Spacing="30" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label Text="Dashboard" TextColor="White" FontSize="14" FontAttributes="Bold"/>
+                    <Label Text="Dashboard" TextColor="#94a3b8" FontSize="14" FontAttributes="Bold">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDashboardTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
                     <Label Text="My Inventory" TextColor="#d4af35" FontSize="14" FontAttributes="Bold"/>
-                    <Label Text="Orders" TextColor="#94a3b8" FontSize="14"/>
+
+                    <Label Text="Orders" TextColor="#94a3b8" FontSize="14">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnOrdersTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </HorizontalStackLayout>
+
                 <HorizontalStackLayout Grid.Column="2" Spacing="20" VerticalOptions="Center">
-                    <Label Text="Profile" TextColor="White" FontSize="14" VerticalOptions="Center"/>
+                    <Label Text="Profile" TextColor="White" FontSize="14" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProfileTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </HorizontalStackLayout>
+
             </Grid>
         </Border>
 
@@ -36,7 +54,7 @@
 
                 <Grid ColumnDefinitions="Auto, *" ColumnSpacing="15">
                     <Button Grid.Column="0" Text="Post Listing" BackgroundColor="#d4af35" TextColor="#1a1812" FontAttributes="Bold" CornerRadius="0" HeightRequest="55" WidthRequest="150" Clicked="OnPostListingClicked"/>
-                    <Border Grid.Column="1" StrokeThickness="0" BackgroundColor="#26241c" HeightRequest="55" HorizontalOptions="Fill">
+                    <Border Grid.Column="1" StrokeThickness="0" HeightRequest="55" HorizontalOptions="Fill">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="0"/>
                         </Border.StrokeShape>
@@ -48,7 +66,7 @@
 
                     <VerticalStackLayout Grid.Column="0" Spacing="5">
                         <Label Text="Condition" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
-                        <Border StrokeThickness="0" BackgroundColor="#26241c" HorizontalOptions="Fill" HeightRequest="55">
+                        <Border StrokeThickness="0" HorizontalOptions="Fill" HeightRequest="55">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="0"/>
                             </Border.StrokeShape>
@@ -66,7 +84,7 @@
 
                     <VerticalStackLayout Grid.Column="1" Spacing="5">
                         <Label Text="Genre" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
-                        <Border StrokeThickness="0" BackgroundColor="#26241c" HorizontalOptions="Fill" HeightRequest="55">
+                        <Border StrokeThickness="0" HorizontalOptions="Fill" HeightRequest="55">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="0"/>
                             </Border.StrokeShape>
@@ -90,7 +108,7 @@
 
                     <VerticalStackLayout Grid.Column="2" Spacing="5">
                         <Label Text="Sort By" TextColor="#cbd5e1" FontSize="12" FontAttributes="Bold" />
-                        <Border StrokeThickness="0" BackgroundColor="#26241c" HorizontalOptions="Fill" HeightRequest="55">
+                        <Border StrokeThickness="0"  HorizontalOptions="Fill" HeightRequest="55">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="0"/>
                             </Border.StrokeShape>

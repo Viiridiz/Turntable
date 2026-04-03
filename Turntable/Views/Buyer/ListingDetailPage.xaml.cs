@@ -1,4 +1,5 @@
 using Turntable.Models;
+using Turntable.Services;
 
 namespace Turntable.Views.Buyer;
 
@@ -68,7 +69,14 @@ public partial class ListingDetailPage : ContentPage
 
     private async void OnAddToCrateClicked(object sender, EventArgs e)
     {
-        await DisplayAlert("Added to Crate", $"{_listing.AlbumName} has been added to your crate.", "OK");
+        if (CartService.CurrentCart.Any(x => x.Id == _listing.Id))
+        {
+            await DisplayAlert("Already in Crate", "This unique record is already in your crate.", "OK");
+            return;
+        }
+
+        CartService.AddToCart(_listing);
+        await DisplayAlert("Added", "Album added to crate.", "OK");
     }
 
     private async void OnBackTapped(object sender, EventArgs e)

@@ -44,6 +44,7 @@ public partial class MarketplacePage : ContentPage
         string sortType = SortPicker.SelectedItem?.ToString() ?? "";
 
         var filtered = _allActiveListings.Where(x =>
+            !x.IsSold && 
             ((x.AlbumName?.ToLower().Contains(searchText) == true) ||
              (x.Artist?.ToLower().Contains(searchText) == true))).ToList();
 
@@ -71,5 +72,15 @@ public partial class MarketplacePage : ContentPage
             MarketplaceList.SelectedItem = null;
             await Navigation.PushAsync(new ListingDetailPage(selectedListing));
         }
+    }
+
+    private async void OnCartTapped(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new MyCratePage());
+    }
+
+    private async void OnMyOrdersTapped(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new MyOrdersPage());
     }
 }

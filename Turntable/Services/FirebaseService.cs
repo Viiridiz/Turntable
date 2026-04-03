@@ -25,6 +25,7 @@ public class FirebaseService
         return items.Select(item => new ListingModel
         {
             Id = item.Key,
+            IsSold = item.Object.IsSold,
             SellerUid = item.Object.SellerUid,
             AlbumName = item.Object.AlbumName,
             Artist = item.Object.Artist,
@@ -55,5 +56,70 @@ public class FirebaseService
             .Child("Listings")
             .Child(id)
             .DeleteAsync();
+    }
+
+    // orders
+    public async Task CreateOrder(OrderModel order)
+    {
+        await firebase
+            .Child("Orders")
+            .PostAsync(order);
+    }
+
+    public async Task<List<OrderModel>> GetBuyerOrders(string buyerUid)
+    {
+        var items = await firebase
+            .Child("Orders")
+            .OnceAsync<OrderModel>();
+
+        return items.Select(item => new OrderModel
+        {
+            OrderId = item.Object.OrderId,
+            BuyerUid = item.Object.BuyerUid,
+            SellerUid = item.Object.SellerUid,
+            ListingId = item.Object.ListingId,
+            AlbumName = item.Object.AlbumName,
+            Artist = item.Object.Artist,
+            ImageUrl = item.Object.ImageUrl,
+            PurchasePrice = item.Object.PurchasePrice,
+            FulfillmentMethod = item.Object.FulfillmentMethod,
+            DeliveryDetails = item.Object.DeliveryDetails,
+            OrderDate = item.Object.OrderDate,
+            Status = item.Object.Status
+        }).Where(o => o.BuyerUid == buyerUid).ToList();
+    }
+
+    public async Task<List<OrderModel>> GetSellerOrders(string sellerUid)
+    {
+        var items = await firebase
+            .Child("Orders")
+            .OnceAsync<OrderModel>();
+
+        return items.Select(item => new OrderModel
+        {
+            OrderId = item.Object.OrderId,
+            BuyerUid = item.Object.BuyerUid,
+            SellerUid = item.Object.SellerUid,
+            ListingId = item.Object.ListingId,
+            AlbumName = item.Object.AlbumName,
+            Artist = item.Object.Artist,
+            ImageUrl = item.Object.ImageUrl,
+            PurchasePrice = item.Object.PurchasePrice,
+            FulfillmentMethod = item.Object.FulfillmentMethod,
+            DeliveryDetails = item.Object.DeliveryDetails,
+            OrderDate = item.Object.OrderDate,
+            Status = item.Object.Status
+        }).Where(o => o.SellerUid == sellerUid).ToList();
+    }
+
+    public async Task UpdateOrder(OrderModel order)
+    {
+        var toUpdate = (await firebase.Child("Orders").OnceAsync<OrderModel>())
+            .FirstOrDefault(a => a.Object.OrderId == order.OrderId);
+
+        if (toUpdate != null)
+        {
+            await firebase.Child("Orders").Child(toUpdate.Key).PutAsync(order);
+        }
     }
 }

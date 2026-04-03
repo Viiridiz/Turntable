@@ -140,4 +140,18 @@ public partial class MyInventoryPage : ContentPage
             await LoadInventory();
         }
     }
+
+    private async void OnDashboardTapped(object sender, EventArgs e)
+    {
+
+    }
+
+    private async void OnOrdersTapped(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new MySalesPage());
+    }
+
+    private async void OnProfileTapped(object sender, EventArgs e)
+    {
+    }
 }
